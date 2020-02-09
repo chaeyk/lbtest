@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk-stretch AS build
 
-ADD .. /workspace
+ADD . /workspace
 WORKDIR /workspace
 RUN sh gradlew bootJar
 
