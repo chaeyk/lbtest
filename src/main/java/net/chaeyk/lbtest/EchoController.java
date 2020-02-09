@@ -13,7 +13,7 @@ public class EchoController {
 
     @GetMapping("/{message}")
     public String echo(@PathVariable String message) {
-        log.info("{}", message);
-        return message;
+        log.info("{}: {}", Util.getHostname(), message);
+        return Util.getHostname() + ": " + message;
     }
 }
