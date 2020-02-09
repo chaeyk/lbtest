@@ -40,4 +40,10 @@ class LbtestApplicationTests {
                 .andExpect(status().isOk())
                 .andExpect(content().string(endsWith("hello")));
     }
+
+    @Test
+    public void longTest() throws Exception {
+        mockMvc.perform(get("/long/1ms"))
+                .andExpect(status().isOk());
+    }
 }

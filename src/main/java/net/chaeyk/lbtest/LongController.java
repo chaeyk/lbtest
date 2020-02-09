@@ -13,7 +13,7 @@ import java.time.Duration;
 public class LongController {
 
     @GetMapping("/{delay}")
-    public String longApi(@PathVariable String delayStr) throws InterruptedException {
+    public String longApi(@PathVariable("delay") String delayStr) throws InterruptedException {
         Duration delay = DurationStyle.detectAndParse(delayStr);
         Thread.sleep(delay.toMillis());
         return Util.getHostname() + ": " + Util.now() + ": OK";
