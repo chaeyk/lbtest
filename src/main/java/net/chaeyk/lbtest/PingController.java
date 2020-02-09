@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/ping")
 @Slf4j
@@ -13,8 +15,8 @@ public class PingController {
     private int statusCode = HttpStatus.OK.value();
 
     @GetMapping
-    public ResponseEntity<String> ping() {
-        log.info("ping {}", statusCode);
+    public ResponseEntity<String> ping(HttpServletRequest request) {
+        log.info("ping {} - {}", statusCode, request.getRemoteAddr());
         return ResponseEntity.status(statusCode)
                 .body(Util.getHostname() + ": " + Util.now() + ": " + statusCode);
     }
