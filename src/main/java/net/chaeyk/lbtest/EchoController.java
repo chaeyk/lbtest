@@ -14,6 +14,6 @@ public class EchoController {
     @GetMapping("/{message}")
     public String echo(@PathVariable String message) {
         log.info("{}: {}", Util.getHostname(), message);
-        return Util.getHostname() + ": " + message;
+        return Util.getHostname() + ": " + Util.now() + ": " + message;
     }
 }

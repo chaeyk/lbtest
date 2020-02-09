@@ -15,12 +15,14 @@ public class PingController {
     @GetMapping
     public ResponseEntity<String> ping() {
         log.info("ping {}", statusCode);
-        return ResponseEntity.status(statusCode).body(Util.getHostname() + ": OK - " + statusCode);
+        return ResponseEntity.status(statusCode)
+                .body(Util.getHostname() + ": " + Util.now() + ": " + statusCode);
     }
 
     @PostMapping("/code/{statusCode}")
     public String setStatusCode(@PathVariable int statusCode) {
         this.statusCode = statusCode;
-        return Util.getHostname() + ": OK - " + statusCode;
+        log.info("code {}", statusCode);
+        return Util.getHostname() + ": " + Util.now() + ": " + statusCode;
     }
 }
