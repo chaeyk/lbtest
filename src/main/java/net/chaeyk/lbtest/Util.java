@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Util {
     private static String hostname = null;
@@ -24,8 +25,10 @@ public class Util {
     }
 
     private static ZoneId zoneId = ZoneId.of("Asia/Seoul");
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
 
-    public static ZonedDateTime now() {
-        return ZonedDateTime.now(zoneId);
+    public static String now() {
+        ZonedDateTime dt = ZonedDateTime.now(zoneId);
+        return dt.format(formatter);
     }
 }
