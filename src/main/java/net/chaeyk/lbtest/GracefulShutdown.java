@@ -20,7 +20,7 @@ public class GracefulShutdown implements TomcatConnectorCustomizer, ApplicationL
 
     private static final int TIMEOUT = 30;
 
-    @Value("{shutdown-wait-seconds:0}")
+    @Value("${shutdown-wait-seconds:0}")
     private int shutdownWaitSeconds = 0;
 
     private volatile Connector connector;
