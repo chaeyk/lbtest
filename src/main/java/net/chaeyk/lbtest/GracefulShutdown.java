@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.threads.ThreadPoolExecutor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
@@ -18,6 +19,9 @@ import java.util.concurrent.TimeUnit;
 public class GracefulShutdown implements TomcatConnectorCustomizer, ApplicationListener<ContextClosedEvent> {
 
     private static final int TIMEOUT = 30;
+
+    @Value("{shutdown-wait-seconds:0}")
+    private int shutdownWaitSeconds = 0;
 
     private volatile Connector connector;
 
@@ -51,6 +55,15 @@ public class GracefulShutdown implements TomcatConnectorCustomizer, ApplicationL
                     }
                 }
             } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+        }
+
+        if (shutdownWaitSeconds > 0) {
+            try {
+                log.info("shutdown wait = {} seconds", shutdownWaitSeconds);
+                Thread.sleep(shutdownWaitSeconds * 1000);
+            } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
         }
