@@ -1,7 +1,10 @@
 package net.chaeyk.lbtest;
 
+import org.springframework.boot.convert.DurationStyle;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.time.Duration;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,5 +33,10 @@ public class Util {
     public static String now() {
         ZonedDateTime dt = ZonedDateTime.now(zoneId);
         return dt.format(formatter);
+    }
+
+    public static void sleep(String delayStr) throws InterruptedException {
+        Duration delay = DurationStyle.detectAndParse(delayStr);
+        Thread.sleep(delay.toMillis());
     }
 }
